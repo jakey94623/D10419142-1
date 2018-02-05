@@ -23,13 +23,7 @@
  * Released under the MIT license
  * https://github.com/indigophp/hash-compat/blob/43a19f42093a0cd2d11874dff9d891027fc42214/LICENSE
  */
-$db_host = "localhost:8080";
-       $db_user = "test";
-       $db_pass = "yFRdADBqKgQ57N9r";
-       $db_select = "linebot_test";
-$dbconnect = "mysql:host=".$db_host.";dbname=".$db_select;
- $dbgo = new PDO($dbconnect, $db_user, $db_pass);
- $sql = "SELECT * FROM linebot_test";
+
 
 
 
