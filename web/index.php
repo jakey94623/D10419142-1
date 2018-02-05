@@ -18,6 +18,10 @@
 
 require_once('./LINEBotTiny.php');
  
+$db_host = "localhost:8080";
+       $db_user = "test";
+       $db_pass = "yFRdADBqKgQ57N9r";
+       $db_select = "linebot_test";
 
 
 
