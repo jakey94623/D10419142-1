@@ -18,13 +18,6 @@
 
 require_once('./LINEBotTiny.php');
  
-$db_host = "localhost:8080";
-       $db_user = "test";
-       $db_pass = "yFRdADBqKgQ57N9r";
-       $db_select = "linebot";
-$dbconnect = "mysql:host=".$db_host.";dbname=".$db_select;
- $dbgo = new PDO($dbconnect, $db_user, $db_pass);
- $sql = "SELECT * FROM linebot";
 
 
 $channelAccessToken = getenv('LINE_CHANNEL_ACCESSTOKEN');
@@ -37,7 +30,14 @@ foreach ($client->parseEvents() as $event) {
             $message = $event['message'];
             switch ($message['type']) {
                 case 'text':
-                    
+                    $db_host = "localhost:8080";
+       $db_user = "test";
+       $db_pass = "yFRdADBqKgQ57N9r";
+       $db_select = "linebot";
+$dbconnect = "mysql:host=".$db_host.";dbname=".$db_select;
+ $dbgo = new PDO($dbconnect, $db_user, $db_pass);
+ $sql = "SELECT * FROM linebot";
+
                 	$m_message = $message['text'];
                     if($m_message == "A"){
                          $client->replyMessage(array(
