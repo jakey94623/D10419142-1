@@ -17,6 +17,18 @@
  */
 
 require_once('./LINEBotTiny.php');
+ $db_host = "localhost:8080";
+
+       $db_user = "test";
+
+       $db_pass = "yFRdADBqKgQ57N9r";
+
+       $db_select = "linebot_test";
+
+$dbconnect = "mysql:host=".$db_host.";dbname=".$db_select;
+ $dbgo = new PDO($dbconnect, $db_user, $db_pass);
+ $sql = "SELECT * FROM linebot_test";
+
 
 
 
@@ -61,7 +73,7 @@ foreach ($client->parseEvents() as $event) {
                              'messages' => array(
                              array(
                                    'type' => 'text',
-                                   'text' => $Q
+                                   'text' => $sql
                                )
                             )
                         	));
