@@ -51,6 +51,7 @@ try{
         echo $row->num."\n";  
         echo $row->cn_title."\n";   
     }
+}
                 	$m_message = $message['text'];
                     if($m_message == "A"){
                          $client->replyMessage(array(
