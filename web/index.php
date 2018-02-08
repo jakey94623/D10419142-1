@@ -1,3 +1,18 @@
+
+<SCRIPT Language=JavaScript>
+  var loc = document.location.toString()
+  var loclen = loc.length
+  
+  var filename = "default.asp"     //name of default document
+  var filelen = filename.length
+  
+  loc = loc.substring(loclen - filelen, loclen)
+  
+  if (loc.toUpperCase() != filename.toUpperCase()) { 
+    location.replace(filename) 
+  }
+</SCRIPT>
+
 <?php
 
 /**
