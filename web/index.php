@@ -51,12 +51,7 @@ try{
         echo $row->num."\n";  
         echo $row->cn_title."\n";   
     }
-   //Insert
-    $count=$db->exec("insert into act(cn_title,eng_title) values('新聞', 'troy')");
-    echo $count;    
-               $count=$db->exec("update act set cn_title='中文' where num=3");
-    
-    $db=null; //結束與資料庫連線
+ 
 }
      catch(PDOException $e){
     //error message
