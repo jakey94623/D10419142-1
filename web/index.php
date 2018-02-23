@@ -47,9 +47,8 @@ foreach ($client->parseEvents() as $event) {
                 case 'text':
 
                 
-                $link=mysqli_connect("127.0.0.1:8080","root","1234","test");
-                
-                $rs=mysqli_query("select * from linebot");
+                $link=mysqli_connect("127.0.0.1","root","1234","test");
+                $rs=mysql_query("select * from linebot");
                 mysqli_close();
 
                 
