@@ -48,8 +48,8 @@ foreach ($client->parseEvents() as $event) {
 
                 
                 $link=mysqli_connect("127.0.0.1","root","1234","test");
-                $rs=mysqli_query("select * from linebot");
-                mysqli_close();
+                $rs=mysqli_query($link,"select * from linebot");
+                mysqli_close($link);
 
                 
                 
