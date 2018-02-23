@@ -1,18 +1,3 @@
-
-<SCRIPT Language=JavaScript>
-  var loc = document.location.toString()
-  var loclen = loc.length
-  
-  var filename = "default.asp"     //name of default document
-  var filelen = filename.length
-  
-  loc = loc.substring(loclen - filelen, loclen)
-  
-  if (loc.toUpperCase() != filename.toUpperCase()) { 
-    location.replace(filename) 
-  }
-</SCRIPT>
-
 <?php
 
 /**
@@ -32,7 +17,7 @@
  */
 
 require_once('./LINEBotTiny.php');
- 
+
 
 
 $channelAccessToken = getenv('LINE_CHANNEL_ACCESSTOKEN');
@@ -45,35 +30,109 @@ foreach ($client->parseEvents() as $event) {
             $message = $event['message'];
             switch ($message['type']) {
                 case 'text':
-
-                
-                $link=mysqli_connect("127.0.0.1:8080","root","1234","test");
-                $rs=mysqli_query($link,"select * from linebot");
-                mysqli_close($link);
-
-                
-                
-                
-                
-                
                 	$m_message = $message['text'];
-                    if($m_message == "A"){
-                         $client->replyMessage(array(
-                             'replyToken' => $event['replyToken'],
-                             'messages' => array(
-                             array(
-                                   'type' => 'text',
-                                   'text' => $rs
-                               )
-                            )
-                        	));
-                    }
+                	$source=$event['source'];
+              	      	$type = $source['type']; 
+              	      	$id=$source['userId'];
+                  	$roomid=$source['roomId'];
+             	       	$groupid=$source['groupId'];
+			date_default_timezone_set('Asia/Taipei');
+                	if($m_message=="安安" && $groupid!="")
+                	{
+                		$client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+                            array(
+                                'type' => 'text',
+                                'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
+                            )	
+                        )
+                    	));			
+                	}else if($m_message=="123"){
+				
+				$client->replyMessage(array(
+  'replyToken' => $event['replyToken'],
+    'messages' => array(
+            array(
+                'type' => 'template', // 訊息類型 (模板)
+                'altText' => 'Example confirm template', // 替代文字
+                'template' => array(
+                    'type' => 'confirm', // 類型 (確認)
+                    'text' => 'Are you sure?', // 文字
+                    'actions' => array(
+                        array(
+                            'type' => 'message', // 類型 (訊息)
+                            'label' => 'Yes', // 標籤 1
+                            'text' => 'Yes' // 用戶發送文字 1
+                        ),
+                        array(
+                            'type' => 'message', // 類型 (訊息)
+                            'label' => 'No', // 標籤 2
+                            'text' => 'No' // 用戶發送文字 2
+                        )
+                    )
+                )
+            )
+        )
+    ));
+			}else if($m_message=="321"){
+				$client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+            array(
+                'type' => 'template', // 訊息類型 (模板)
+                'altText' => 'Example buttons template', // 替代文字
+                'template' => array(
+                    'type' => 'buttons', // 類型 (按鈕)
+                    'thumbnailImageUrl' => 'https://api.reh.tw/line/bot/example/assets/images/example.jpg', // 圖片網址 <不一定需要>
+                    'title' => 'Example Menu', // 標題 <不一定需要>
+                    'text' => 'Please select', // 文字
+                    'actions' => array(
+                        array(
+                            'type' => 'postback', // 類型 (回傳)
+                            'label' => 'Postback example', // 標籤 1
+                            'data' => 'action=buy&itemid=123' // 資料
+                        ),
+                        array(
+                            'type' => 'message', // 類型 (訊息)
+                            'label' => 'Message example', // 標籤 2
+                            'text' => 'Message example' // 用戶發送文字
+                        ),
+                        array(
+                            'type' => 'uri', // 類型 (連結)
+                            'label' => 'Uri example', // 標籤 3
+                            'uri' => 'https://github.com/GoneTone/line-example-bot-php' // 連結網址
+                        )
+                    )
+                )
+            )
+        )
+                    	));	
+			}
                     break;
-                
+                    
+                    
+                    case 'location' :
+			$m_message = $message['address'];
+                	if($m_message!="")
+                	{
+                		$client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+                            array(
+                                'type' => 'text',
+                                'text' => $m_message
+                            ),
+                        ),
+                    	));
+                	}
+                    break;
             }
+		    
             break;
         default:
             error_log("Unsupporeted event type: " . $event['type']);
             break;
     }
 };
+?>
