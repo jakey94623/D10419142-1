@@ -45,44 +45,19 @@ foreach ($client->parseEvents() as $event) {
             $message = $event['message'];
             switch ($message['type']) {
                 case 'text':
-       $hostname = 'localhost';
-       $username = 'test';
-       $password = '54105410';
-       $db_name = "linebot";
-try{
-    $db=new PDO("mysql:host=".$hostname.";
-                dbname=".$db_name, $username, $password,
-                array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-                //PDO::MYSQL_ATTR_INIT_COMMAND 設定編碼
+
                 
-    //echo '連線成功';
-    $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION); //錯誤訊息提醒
-    
-    //Query SQL
-    $sql="Select * from act where num=3";
-    $result=$db->query($sql);    
-    while($row=$result->fetch(PDO::FETCH_OBJ)){    
-        //PDO::FETCH_OBJ 指定取出資料的型態
-        echo $row->num."\n";  
-        echo $row->cn_title."\n";   
-    }
- 
-}
-     catch(PDOException $e){
-    //error message
-    echo $e->getMessage(); 
-}        
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
+                mysql_connect("127.0.0.1:8080","root","1234");
+                mysql_select_db("test");
+                $rs=mysql_query("select * from linebot");
+                print_r(mysql_fetch_row($rs));
+                mysql_close();
+
+                
+                
+                
+                
+                
                 	$m_message = $message['text'];
                     if($m_message == "A"){
                          $client->replyMessage(array(
@@ -90,7 +65,7 @@ try{
                              'messages' => array(
                              array(
                                    'type' => 'text',
-                                   'text' => $sql
+                                   'text' => $rs
                                )
                             )
                         	));
