@@ -23,7 +23,7 @@ require_once('./LINEBotTiny.php');
 
 $channelAccessToken = getenv('LINE_CHANNEL_ACCESSTOKEN');
 $channelSecret = getenv('LINE_CHANNEL_SECRET');
-$link= ture;
+
 $link=@mysqli_connect("localhost","id901974_linebot","123456","id901974_linebot","3306");
 
 mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
