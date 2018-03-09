@@ -50,7 +50,7 @@ foreach ($client->parseEvents() as $event) {
 			mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
 			    
 			if (mysqli_connect_errno()){
-				$debugmsg='77777';
+				$debugmsg="Failed to connect to MySQL: " . mysqli_connect_error();
 			}
 			    
 			mysqli_close($link);
