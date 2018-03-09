@@ -44,6 +44,12 @@ foreach ($client->parseEvents() as $event) {
                   	$roomid=$source['roomId'];
              	       	$groupid=$source['groupId'];
 			date_default_timezone_set('Asia/Taipei');
+			    
+			    $debugmsg='123456';
+			//$link=@mysqli_connect("145.14.144.52","id901974_linebot","123456","id901974_linebot");
+			//mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
+			//mysqli_close($link);
+			    
                 	if($m_message=="安安")
                 	{
 				
@@ -53,7 +59,8 @@ foreach ($client->parseEvents() as $event) {
                             array(
                                 'type' => 'text',
                                 //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => '123'
+				 'text' => $debugmsg
+				 
                             )	
                         )
                     	));			
