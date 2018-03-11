@@ -43,7 +43,7 @@ foreach ($client->parseEvents() as $event) {
 			date_default_timezone_set('Asia/Taipei');
 			    
 			    $debugmsg='123456';
-			$link = mysqli_connect("192.168.0.127","test","123456","test");
+			$link = mysqli_connect("192.168.0.127","test","1244443456","test");
 $A=mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
 			    
 			if (mysqli_connect_errno()){
