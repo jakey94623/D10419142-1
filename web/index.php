@@ -46,14 +46,13 @@ foreach ($client->parseEvents() as $event) {
 			date_default_timezone_set('Asia/Taipei');
 			    
 			    $debugmsg='123456';
-			$link=@mysqli_connect("145.14.144.52","id901974_linebot","123456","id901974_linebot");
-			mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
+			
 			    
 			if (mysqli_connect_errno()){
 				$debugmsg="Failed to connect to MySQL: " . mysqli_connect_error();
 			}
 			    
-			mysqli_close($link);
+			
 			    
                 	if($m_message=="安安")
                 	{
