@@ -24,10 +24,7 @@ require_once('./LINEBotTiny.php');
 $channelAccessToken = getenv('LINE_CHANNEL_ACCESSTOKEN');
 $channelSecret = getenv('LINE_CHANNEL_SECRET');
 
-$link=mysqli_connect("192.168.0.127","test","123456","test");
 
-$A=mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
-               mysqli_close($link);
 
 
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
@@ -46,12 +43,14 @@ foreach ($client->parseEvents() as $event) {
 			date_default_timezone_set('Asia/Taipei');
 			    
 			    $debugmsg='123456';
-			
+			$link = mysqli_connect("192.168.0.127","test","123456","test");
+$A=mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
 			    
 			if (mysqli_connect_errno()){
 				$debugmsg="Failed to connect to MySQL: " . mysqli_connect_error();
 			}
 			    
+               mysqli_close($link);
 			
 			    
                 	if($m_message=="安安")
