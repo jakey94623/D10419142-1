@@ -24,9 +24,9 @@ require_once('./LINEBotTiny.php');
 $channelAccessToken = getenv('LINE_CHANNEL_ACCESSTOKEN');
 $channelSecret = getenv('LINE_CHANNEL_SECRET');
 
-$link=mysqli_connect("ec2-54-243-31-34.compute-1.amazonaws.com","lkldwwxxomqqfj","7a8bb335bc996d9be6c6a1eb5473972c2a32c5c96c1ab57f2238b3269fa2075a","d602p1jlpr9hfp");
+$link=mysqli_connect("192.168.0.127","test","123456","test");
 
-mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
+$A=mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
                mysqli_close($link);
 
 
