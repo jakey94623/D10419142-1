@@ -45,7 +45,7 @@ foreach ($client->parseEvents() as $event) {
 			    $debugmsg='123456';
 			   
 			   
-			   $link=@$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
+			 $link=@$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
 			    $cool=mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
 			    if(mysqli_connect_errno()){ $debugmsg='資料庫連線失敗'; //資料庫連線失敗
 				}else{
@@ -75,7 +75,7 @@ $A=mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
                             array(
                                 'type' => 'text',
                                 //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => $link
+				 'text' => $cool
 				 
                             )	
                         )
