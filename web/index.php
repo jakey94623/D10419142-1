@@ -17,7 +17,7 @@
  */
 
 require_once('./LINEBotTiny.php');
-
+require_once __DIR__ . '/../src/LINEBot/Response.php';
 
 
 
