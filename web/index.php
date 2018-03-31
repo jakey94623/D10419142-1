@@ -18,7 +18,7 @@
 
 require_once('./LINEBotTiny.php');
 require_once __DIR__ . '/../src/LINEBot/Response.php';
-USE ifz67f5o6szf2gdu;
+
 
 
 $channelAccessToken = getenv('LINE_CHANNEL_ACCESSTOKEN');
