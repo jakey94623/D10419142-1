@@ -42,31 +42,54 @@ foreach ($client->parseEvents() as $event) {
              	       	$groupid=$source['groupId'];
 			date_default_timezone_set('Asia/Taipei');
 			    
-			    $debugmsg='123456';
+			  /*  $debugmsg='123456';
 			   
 			   
-			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
+			
 			    
 			    //$cool=mysqli_query($mysqli,"select Q from test");
 			    mysqli_query($mysqli,"INSERT INTO test (Q, A)VALUES ('555','666')");
 			    if(mysqli_connect_errno()){ $debugmsg='資料庫連線失敗'; //資料庫連線失敗
 				}else{
 					$mysqli->close();
-				}
+				} */
 			    
 			    
-			   /*
+			    $debugmsg='123456';
+			    
+                    $mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");      
+                    $sql = "select Q from test";
+                    $result = $mysqli->query($sql);  
+                    while($row = $result->fetch_array(MYSQLI_BOTH)) {
+  	            $cool = $row['Q'] ;
+		    }
+			    
+		$mysqli->query('select Q from test where cool=456');
+		$cool='';
+		$result = $db->query("call getUsers()");
+		if($result){
+		     //Cycle through results
+		    while ($row = $result->fetch_object()){
+			$cool = $row;
+		    }
+		    // Free result set
+		    $result->close();
+		}    
+			    
+	            if(mysqli_connect_errno()){ 
+                        $debugmsg='資料庫連線失敗';
+                    }
+                    else{
+			    
+			    
+			 $mysqli->close();
+		    }
+			    
+			    
 			   
 			   
-			    $link = mysqli_connect("localost","id901974_linebot","123456","id901974_linebot");
-$A=mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
-			    
-			if (mysqli_connect_errno()){
-				$debugmsg="Failed to connect to MySQL: " . mysqli_connect_error();
-			}
-			    
-               mysqli_close($link);
-			*/
+			   
+			 
 			    
                 	if($m_message=="安安")
                 	{
