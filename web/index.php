@@ -50,9 +50,10 @@ foreach ($client->parseEvents() as $event) {
 			    
 			    if(mysqli_connect_errno()){ $debugmsg='資料庫連線失敗'; //資料庫連線失敗
 				}else{
-				        mysqli_query($mysqli,"SET NAMES 'utf8'")
+				        mysqli_query($mysqli,"SET NAMES 'utf8'");
 					
-				} }
+			    }
+	    
 			    
 			    
 
