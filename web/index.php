@@ -91,7 +91,6 @@ foreach ($client->parseEvents() as $event) {
 					
 				}
 				
-				mysqli_query($mysqli,"")
                 		$client->replyMessage(array(
                         'replyToken' => $event['replyToken'],
                         'messages' => array(
