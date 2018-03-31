@@ -58,7 +58,7 @@ foreach ($client->parseEvents() as $event) {
 			    
 
 			    
-                       		 $mysqli->query("Insert INTO test (msg) values ('$m_message')");//成功會回傳 object 失敗則回傳 null
+                       		 $mysqli->query("Insert INTO test (msg) values ('123456')");//成功會回傳 object 失敗則回傳 null
 				
                    
 			   
