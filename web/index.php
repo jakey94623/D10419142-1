@@ -52,7 +52,7 @@ foreach ($client->parseEvents() as $event) {
 				}else{
 				        mysqli_query($mysqli,"SET NAMES 'utf8'")
 					
-				} 
+				} }
 			    
 			    
 
