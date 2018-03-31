@@ -47,9 +47,11 @@ foreach ($client->parseEvents() as $event) {
 			   
 			
 			    $mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306"); 
+			    
 			    if(mysqli_connect_errno()){ $debugmsg='資料庫連線失敗'; //資料庫連線失敗
 				}else{
-					$mysqli->close();
+				        mysqli_query($mysqli,"SET NAMES 'utf8'")
+					
 				} 
 			    
 			    
@@ -63,14 +65,39 @@ foreach ($client->parseEvents() as $event) {
 			    
                 	if($m_message=="安安")
                 	{
+				$result = $mysqli->query("SELECT Q FROM test");//成功會回傳 object 失敗則回傳 null
+				if($result==null){ /* 資料庫語法錯誤 */
+					//$this->console_log .='資料庫語法錯誤';
+					//$this->console_log .='語法錯誤>'.(string)$mysqli->errno.(string)$mysqli->error.'<';
+				}else{
+					//$this->console_log .='更改筆數>'.(int)$mysqli->affected_rows.'<';
+					//$this->console_log .='插入流水號>'.(int)$mysqli->insert_id.'<';
+					//$this->console_log .='欄位數量>'.(int)$result->field_count.'<';
+					//$this->console_log .='資料筆數>'.(int)$result->num_rows.'<';
+					
+					if((int)$result->num_rows==0){//沒有值會錯誤
+						
+					}else{
+						
+						
+						while ($row = $result->fetch_assoc() ){
+							$cool=$row['Q'];
+						}	
+							
+						
+						$result->close();
+					}
+					
+				}
 				
+				mysqli_query($mysqli,"")
                 		$client->replyMessage(array(
                         'replyToken' => $event['replyToken'],
                         'messages' => array(
                             array(
                                 'type' => 'text',
                                 //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => $debugmsg
+				 'text' => $cool
 				 
                             )	
                         )
