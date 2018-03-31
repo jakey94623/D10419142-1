@@ -70,7 +70,7 @@ foreach ($client->parseEvents() as $event) {
                             array(
                                 'type' => 'text',
                                 //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => $cool
+				 'text' => $debugmsg
 				 
                             )	
                         )
