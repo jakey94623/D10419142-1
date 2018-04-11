@@ -82,7 +82,7 @@ foreach ($client->parseEvents() as $event) {
 					}else{
 						while ($row = $result->fetch_assoc() )
 						{
-							$Q=$row['118'];
+							$Q=$row['Q'];
 						}	
 							
 						
@@ -116,11 +116,9 @@ foreach ($client->parseEvents() as $event) {
 					if((int)$result->num_rows==0){//沒有值會錯誤
 						
 					}else{
-						while ($row = $result->fetch_assoc() )
-						{
+						$row = $result->fetch_assoc() ;
 							$msg=$row['msg'];
-						}	
-							
+					
 						
 						$result->close();
 					}
