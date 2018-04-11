@@ -16,24 +16,98 @@
  * under the License.
  */
 
+
 require_once('./LINEBotTiny.php');
+require_once __DIR__ . '/../src/LINEBot.php';
 require_once __DIR__ . '/../src/LINEBot/Response.php';
+require_once __DIR__ . '/../src/LINEBot/HTTPClient.php';
+require_once __DIR__ . '/../src/LINEBot/MessageBuilder.php';
+require_once __DIR__ . '/../src/LINEBot/TemplateActionBuilder.php';
+require_once __DIR__ . '/../src/LINEBot/Constant/Meta.php';
+require_once __DIR__ . '/../src/LINEBot/Constant/MessageType.php';
+require_once __DIR__ . '/../src/LINEBot/Constant/ActionType.php';
+require_once __DIR__ . '/../src/LINEBot/Constant/TemplateType.php';
+require_once __DIR__ . '/../src/LINEBot/HTTPClient/Curl.php';
+require_once __DIR__ . '/../src/LINEBot/HTTPClient/CurlHTTPClient.php';
+require_once __DIR__ . '/../src/LINEBot/TemplateActionBuilder.php';
+require_once __DIR__ . '/../src/LINEBot/TemplateActionBuilder/PostbackTemplateActionBuilder.php';
+require_once __DIR__ . '/../src/LINEBot/MessageBuilder/TemplateBuilder.php';
+require_once __DIR__ . '/../src/LINEBot/MessageBuilder/LocationMessageBuilder.php';
+require_once __DIR__ . '/../src/LINEBot/MessageBuilder/TemplateBuilder/ConfirmTemplateBuilder.php';
+require_once __DIR__ . '/../src/LINEBot/MessageBuilder/TextMessageBuilder.php';
+require_once __DIR__ . '/../src/LINEBot/MessageBuilder/TemplateMessageBuilder.php';
 
 
 
 $channelAccessToken = getenv('LINE_CHANNEL_ACCESSTOKEN');
 $channelSecret = getenv('LINE_CHANNEL_SECRET');
-
-
-
-
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channelAccessToken);
 foreach ($client->parseEvents() as $event) {
     switch ($event['type']) {
         case 'message':
             $message = $event['message'];
             switch ($message['type']) {
-                case 'text':
+                 case 'location':
+                    $replyToken=$event['replyToken'];
+                    $m_message = $message['text']; $source=$event['source']; $idtype = $source['type'];  $userid=$source['userId'];
+                    $roomid=$source['roomId']; $groupid=$source['groupId'];$type=$message['type'];
+                    $res = $bot->getProfile($userid); $profile = $res->getJSONDecodedBody();$displayName = $profile['displayName'];
+		    $address=$message['address']; $title=$message['title'];
+                    $longitude=$message['longitude']; $latitude=$message['latitude']; 
+                    date_default_timezone_set('Asia/Taipei');$time=date("Y-m-d H:i:s");
+		
+		    if($address!="" && $longitude>=121.5651 && $longitude<=121.5654 && $latitude>=25.0865 && $latitude<=25.0868){
+			$mysqli = new mysqli('gzp0u91edhmxszwf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "vu5qzklum1466fvr", "ieewar6pa07471zn", "oqz0qx1hdl6jbtca","3306");
+			$sql = "select worktype from mysql where location='' and longitude='' and latitude='' and userid='$userid'";
+			$result = $mysqli->query($sql);
+			while($row = $result->fetch_array(MYSQLI_BOTH)) {
+  			$worktype = $row['worktype'] ;
+			}	
+			if($worktype!=""){
+			    $mysqli = new mysqli('gzp0u91edhmxszwf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "vu5qzklum1466fvr", "ieewar6pa07471zn", "oqz0qx1hdl6jbtca","3306");	
+			    $sql = "UPDATE mysql SET location='$address',longitude='$longitude',latitude='$latitude' where name='$displayName' and worktype!=''and userid='$userid';";
+			    $result = $mysqli->query($sql);
+				$client->replyMessage(array(
+        				'replyToken' => $event['replyToken'],
+     			   		'messages' => array(
+				   	array(
+                                          'type' => 'text',
+                                          'text' => "定位成功!!"
+                                       	),
+ 				)));
+			$sql="SELECT worktype from mysql where userid='$userid'";
+			$result = $mysqli->query($sql);
+			while($row = $result->fetch_array(MYSQLI_BOTH)) {
+  				$worktype = $row['worktype'] ;
+ 			 }
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayName." ".$worktype);
+		    	$response = $bot->pushMessage('R8466f385da9bd8eac6fb509622c0a892', $textMessageBuilder);
+			}
+		    else{
+			$mysqli = new mysqli('gzp0u91edhmxszwf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "vu5qzklum1466fvr", "ieewar6pa07471zn", "oqz0qx1hdl6jbtca","3306");
+			$sql="SELECT number from mysql";
+			$result = $mysqli->query($sql);
+			while($row = $result->fetch_array(MYSQLI_BOTH)) {
+  				$number = $row['number'] ;
+ 			 }
+			$number=$number+1;
+			$sql="INSERT INTO mysql (number,name,userid,worktime,location,longitude,latitude) VALUES ('$number','$displayName','$userid','$time','$address','$longitude','$latitude')";
+			$result = $mysqli->query($sql);
+			sleep(3);    
+			$sql="SELECT name from mysql where worktype=''";
+			$result = $mysqli->query($sql);
+			while($row = $result->fetch_array(MYSQLI_BOTH)) {
+  				$name = $row['name'] ;
+ 			 }
+			if($name!=""){
+				$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("請按進出按鈕");
+		    		$response = $bot->pushMessage($userid, $textMessageBuilder);
+			}
+		    } 
+		 }
+		break;    
+		    case 'text':
                 	$m_message = $message['text'];
                 	$source=$event['source'];
               	      	$type = $source['type']; 
@@ -41,8 +115,6 @@ foreach ($client->parseEvents() as $event) {
                   	$roomid=$source['roomId'];
              	       	$groupid=$source['groupId'];
 			date_default_timezone_set('Asia/Taipei');
-			    
-			    $debugmsg='123456';
 			   
 			   
 			
@@ -67,80 +139,79 @@ foreach ($client->parseEvents() as $event) {
 			    
                 	if(preg_match("/$in/","$m_message"))
                 	{
-				$result = $mysqli->query("SELECT Q FROM test");//成功會回傳 object 失敗則回傳 null
-				if($result==null){ /* 資料庫語法錯誤 */
-					//$this->console_log .='資料庫語法錯誤';
-					//$this->console_log .='語法錯誤>'.(string)$mysqli->errno.(string)$mysqli->error.'<';
-				}else{
-					//$this->console_log .='更改筆數>'.(int)$mysqli->affected_rows.'<';
-					//$this->console_log .='插入流水號>'.(int)$mysqli->insert_id.'<';
-					//$this->console_log .='欄位數量>'.(int)$result->field_count.'<';
-					//$this->console_log .='資料筆數>'.(int)$result->num_rows.'<';
-					
-					if((int)$result->num_rows==0){//沒有值會錯誤
-						
-					}else{
-						while ($row = $result->fetch_assoc() )
-						{
-							$Q=$row['Q'];
-						}	
-							
-						
-						$result->close();
-					}
-					
-				}
-				
-                		$client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
-                            array(
-                                'type' => 'text',
-                                //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => $Q
-				 
-                            )	
-                        )
-                    	));			
-                	}else if(preg_match("/$out/","$m_message")){
-				$result = $mysqli->query("SELECT msg FROM test");//成功會回傳 object 失敗則回傳 null
-				if($result==null){ /* 資料庫語法錯誤 */
-					//$this->console_log .='資料庫語法錯誤';
-					//$this->console_log .='語法錯誤>'.(string)$mysqli->errno.(string)$mysqli->error.'<';
-				}else{
-					//$this->console_log .='更改筆數>'.(int)$mysqli->affected_rows.'<';
-					//$this->console_log .='插入流水號>'.(int)$mysqli->insert_id.'<';
-					//$this->console_log .='欄位數量>'.(int)$result->field_count.'<';
-					//$this->console_log .='資料筆數>'.(int)$result->num_rows.'<';
-					
-					if((int)$result->num_rows==0){//沒有值會錯誤
-						
-					}else{
-						$a=0;
-						
-						while ($row = $result->fetch_assoc() )
-						{
-						$msg=$row['msg'];
-						$msg[$a];
-						}
-						$a+=1;
-						$result->close();
-					}
-					
-				}
-				
-                		$client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
-                            array(
-                                'type' => 'text',
-                                //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => $msg
-				 
-                            )	
-                        )
-                    	))  ;		
-			}   else {
+			$mysqli = new mysqli('gzp0u91edhmxszwf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "vu5qzklum1466fvr", "ieewar6pa07471zn", "oqz0qx1hdl6jbtca","3306");
+			$sql = "SELECT location from mysql where worktype='' and userid='$userid'";
+			$result = $mysqli->query($sql);
+			while($row = $result->fetch_array(MYSQLI_BOTH)) {
+  			$location = $row['location'] ;
+			}
+			if($location!=""){
+			$client->replyMessage(array(
+			'replyToken' => $event['replyToken'],
+     			   'messages' => array(
+			     array(
+                                          'type' => 'text',
+                                          'text' => "歡迎你的到來!!" . "\n" . "祝你使用愉快!!"
+                                   ),
+ 	       		)));
+			$mysqli = new mysqli('gzp0u91edhmxszwf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "vu5qzklum1466fvr", "ieewar6pa07471zn", "oqz0qx1hdl6jbtca","3306");
+			$sql = "UPDATE mysql SET worktype='進' where name='$displayName' and worktype=' '";
+			$result = $mysqli->query($sql);
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayName." "."進");
+		    	$response = $bot->pushMessage('R8466f385da9bd8eac6fb509622c0a892', $textMessageBuilder);
+			}
+			else{
+			$mysqli = new mysqli('gzp0u91edhmxszwf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "vu5qzklum1466fvr", "ieewar6pa07471zn", "oqz0qx1hdl6jbtca","3306");
+			$sql="SELECT number from mysql";
+			$result = $mysqli->query($sql);
+			while($row = $result->fetch_array(MYSQLI_BOTH)) {
+  				$number = $row['number'] ;
+ 			 }
+			$number=$number+1;
+			$sql="INSERT INTO mysql (number,name,userid,worktime,worktype) VALUES ('$number','$displayName','$userid','$time','進')";
+			$result = $mysqli->query($sql);
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("請定位你的位置");
+		    	$response = $bot->pushMessage($userid, $textMessageBuilder);
+			}
+		    }
+			    else if(preg_match("/$out/","$m_message")){
+				$mysqli = new mysqli('gzp0u91edhmxszwf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "vu5qzklum1466fvr", "ieewar6pa07471zn", "oqz0qx1hdl6jbtca","3306");
+			$sql = "SELECT location from mysql where worktype='' and userid='$userid'";
+			$result = $mysqli->query($sql);
+			while($row = $result->fetch_array(MYSQLI_BOTH)) {
+  			$location = $row['location'] ;
+			}
+			if($location!=""){
+			$client->replyMessage(array(
+        		'replyToken' => $event['replyToken'],
+     			   'messages' => array(
+			     array(
+                                          'type' => 'text',
+                                          'text' => "歡迎你的到來!!" . "\n" . "祝你使用愉快!!"
+                                   ),
+ 	       		)));
+			$mysqli = new mysqli('gzp0u91edhmxszwf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "vu5qzklum1466fvr", "ieewar6pa07471zn", "oqz0qx1hdl6jbtca","3306");
+			$sql = "UPDATE mysql SET worktype='出' where name='$displayName' and worktype=' '";
+			$result = $mysqli->query($sql);
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayName." "."出");
+		    	$response = $bot->pushMessage('R8466f385da9bd8eac6fb509622c0a892', $textMessageBuilder);
+			}
+			else{
+			$mysqli = new mysqli('gzp0u91edhmxszwf.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "vu5qzklum1466fvr", "ieewar6pa07471zn", "oqz0qx1hdl6jbtca","3306");
+			$sql="SELECT number from mysql";
+			$result = $mysqli->query($sql);
+			while($row = $result->fetch_array(MYSQLI_BOTH)) {
+  				$number = $row['number'] ;
+ 			 }
+			$number=$number+1;
+			$sql="INSERT INTO mysql (number,name,userid,worktime,worktype) VALUES ('$number','$displayName','$userid','$time','出')";
+			$result = $mysqli->query($sql);
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("請定位你的位置");
+		    	$response = $bot->pushMessage($userid, $textMessageBuilder);
+			}	
+			}   
+			    
+			    else {
 				$client->replyMessage(array(
                         'replyToken' => $event['replyToken'],
                         'messages' => array(
