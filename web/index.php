@@ -61,10 +61,11 @@ foreach ($client->parseEvents() as $event) {
                        		 $mysqli->query("Insert INTO test (msg) values ('$m_message')");//成功會回傳 object 失敗則回傳 null
 				
             
-			   $mmsg='進';
+			   $in='進';
+			    $out='出';
 			 
 			    
-                	if(preg_match("/$mmsg/","$m_message"))
+                	if(preg_match("/$in/","$m_message"))
                 	{
 				$result = $mysqli->query("SELECT Q FROM test");//成功會回傳 object 失敗則回傳 null
 				if($result==null){ /* 資料庫語法錯誤 */
@@ -79,10 +80,9 @@ foreach ($client->parseEvents() as $event) {
 					if((int)$result->num_rows==0){//沒有值會錯誤
 						
 					}else{
-						
-						
-						while ($row = $result->fetch_assoc() ){
-							$cool=$row['Q'];
+						while ($row = $result->fetch_assoc() )
+						{
+							$Q=$row['Q'];
 						}	
 							
 						
@@ -97,12 +97,48 @@ foreach ($client->parseEvents() as $event) {
                             array(
                                 'type' => 'text',
                                 //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => $cool
+				 'text' => $Q
 				 
                             )	
                         )
                     	));			
-                	}else {
+                	}else if(preg_match("/$out/","$m_message")){
+				$result = $mysqli->query("SELECT msg FROM test");//成功會回傳 object 失敗則回傳 null
+				if($result==null){ /* 資料庫語法錯誤 */
+					//$this->console_log .='資料庫語法錯誤';
+					//$this->console_log .='語法錯誤>'.(string)$mysqli->errno.(string)$mysqli->error.'<';
+				}else{
+					//$this->console_log .='更改筆數>'.(int)$mysqli->affected_rows.'<';
+					//$this->console_log .='插入流水號>'.(int)$mysqli->insert_id.'<';
+					//$this->console_log .='欄位數量>'.(int)$result->field_count.'<';
+					//$this->console_log .='資料筆數>'.(int)$result->num_rows.'<';
+					
+					if((int)$result->num_rows==0){//沒有值會錯誤
+						
+					}else{
+						while ($row = $result->fetch_assoc() )
+						{
+							$msg=$row['msg'];
+						}	
+							
+						
+						$result->close();
+					}
+					
+				}
+				
+                		$client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+                            array(
+                                'type' => 'text',
+                                //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
+				 'text' => $msg
+				 
+                            )	
+                        )
+                    	))  ;		
+			}   else {
 				$client->replyMessage(array(
                         'replyToken' => $event['replyToken'],
                         'messages' => array(
@@ -112,8 +148,8 @@ foreach ($client->parseEvents() as $event) {
                 'template' => array(
                     'type' => 'buttons', // 類型 (按鈕)
                     'thumbnailImageUrl' => 'https://api.reh.tw/line/bot/example/assets/images/example.jpg', // 圖片網址 <不一定需要>
-                    'title' => 'Example Menu', // 標題 <不一定需要>
-                    'text' => 'Please select', // 文字
+                    'title' => '操作選單', // 標題 <不一定需要>
+                    'text' => '請選擇下列選單', // 文字
                     'actions' => array(
                         array(
                             'type' => 'message', // 類型 (回傳)
