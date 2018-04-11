@@ -60,29 +60,11 @@ foreach ($client->parseEvents() as $event) {
 			    
                        		 $mysqli->query("Insert INTO test (msg) values ('$m_message')");//成功會回傳 object 失敗則回傳 null
 				
-                   if(preg_match("/進/","$m_message")){
-		   $client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
-                            array(
-                                'type' => 'text',
-                                //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => $debugmsg
-				 
-		   }else {
-		    $client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
-                            array(
-                                'type' => 'text',
-                                //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => 'error'
-		   }
-			   
+            
 			   
 			 
 			    
-                	if($m_message=="安安")
+                	if(preg_match("/進/","$m_message"))
                 	{
 				$result = $mysqli->query("SELECT Q FROM test");//成功會回傳 object 失敗則回傳 null
 				if($result==null){ /* 資料庫語法錯誤 */
