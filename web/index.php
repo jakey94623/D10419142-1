@@ -116,9 +116,19 @@ foreach ($client->parseEvents() as $event) {
 					if((int)$result->num_rows==0){//沒有值會錯誤
 						
 					}else{
-						$row = $result->fetch_assoc() ;
-							$msg=$row['msg'];
-					
+						while ($row = $result->fetch_assoc() )
+						{
+						$msg=$row['msg'];
+						$client->replyMessage(array(
+						'replyToken' => $event['replyToken'],
+						'messages' => array(
+                           
+						array(
+					        'type' => 'text',
+						//'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
+				                'text' => $msg
+							
+						}
 						
 						$result->close();
 					}
