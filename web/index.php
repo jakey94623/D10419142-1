@@ -61,10 +61,10 @@ foreach ($client->parseEvents() as $event) {
                        		 $mysqli->query("Insert INTO test (msg) values ('$m_message')");//成功會回傳 object 失敗則回傳 null
 				
             
-			   
+			   $mmsg='進';
 			 
 			    
-                	if(preg_match("/進/","$m_message"))
+                	if(preg_match("/$mmsg/","$m_message"))
                 	{
 				$result = $mysqli->query("SELECT Q FROM test");//成功會回傳 object 失敗則回傳 null
 				if($result==null){ /* 資料庫語法錯誤 */
