@@ -149,7 +149,7 @@ foreach ($client->parseEvents() as $event) {
                 'altText' => 'Example buttons template', // 替代文字
                 'template' => array(
                     'type' => 'buttons', // 類型 (按鈕)
-                    'thumbnailImageUrl' => 'https://api.reh.tw/line/bot/example/assets/images/example.jpg', // 圖片網址 <不一定需要>
+                    'thumbnailImageUrl' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Takming_University_of_Science_and_Technology_logo.svg/600px-Takming_University_of_Science_and_Technology_logo.svg.png', // 圖片網址 <不一定需要>
                     'title' => '操作選單', // 標題 <不一定需要>
                     'text' => '請選擇下列選單', // 文字
                     'actions' => array(
