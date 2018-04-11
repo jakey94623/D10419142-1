@@ -102,34 +102,7 @@ foreach ($client->parseEvents() as $event) {
                             )	
                         )
                     	));			
-                	}else if($m_message=="123"){
-				
-				$client->replyMessage(array(
-  'replyToken' => $event['replyToken'],
-    'messages' => array(
-            array(
-                'type' => 'template', // 訊息類型 (模板)
-                'altText' => 'Example confirm template', // 替代文字
-                'template' => array(
-                    'type' => 'confirm', // 類型 (確認)
-                    'text' => 'Are you sure?', // 文字
-                    'actions' => array(
-                        array(
-                            'type' => 'message', // 類型 (訊息)
-                            'label' => 'Yes', // 標籤 1
-                            'text' => 'Yes' // 用戶發送文字 1
-                        ),
-                        array(
-                            'type' => 'message', // 類型 (訊息)
-                            'label' => 'No', // 標籤 2
-                            'text' => 'No' // 用戶發送文字 2
-                        )
-                    )
-                )
-            )
-        )
-    ));
-			}else if($m_message=="321"){
+                	}else {
 				$client->replyMessage(array(
                         'replyToken' => $event['replyToken'],
                         'messages' => array(
@@ -143,40 +116,26 @@ foreach ($client->parseEvents() as $event) {
                     'text' => 'Please select', // 文字
                     'actions' => array(
                         array(
-                            'type' => 'postback', // 類型 (回傳)
-                            'label' => 'Postback example', // 標籤 1
-                            'data' => 'action=buy&itemid=123' // 資料
+                            'type' => 'message', // 類型 (回傳)
+                            'label' => '進', // 標籤 1
+                            'text' => '進' // 資料
                         ),
                         array(
                             'type' => 'message', // 類型 (訊息)
-                            'label' => 'Message example', // 標籤 2
-                            'text' => 'Message example' // 用戶發送文字
+                            'label' => '出', // 標籤 2
+                            'text' => '出' // 用戶發送文字
                         ),
                         array(
                             'type' => 'uri', // 類型 (連結)
-                            'label' => 'Uri example', // 標籤 3
-                            'uri' => 'https://github.com/GoneTone/line-example-bot-php' // 連結網址
+                            'label' => '查詢紀錄', // 標籤 3
+                            'uri' => 'http://d10419103.comeze.com/show.php' // 連結網址
                         )
                     )
                 )
             )
         )
                     	));	
-			}else if($m_message=="hello"){
-				
-				
-				$client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
-                            array(
-                                'type' => 'text',
-                                //'text' => $m_message ."\n" . $roomid."\n". date('Y-m-d h:i:sa') . "\n" . $id . "\n" . $groupid
-				 'text' => $debugmsg
-				 
-                            )	
-                        )
-                    	));			
-                	}
+			}
                     break;
                     
                     
