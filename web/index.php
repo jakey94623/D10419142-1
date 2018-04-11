@@ -49,7 +49,7 @@ foreach ($client->parseEvents() as $event) {
             $message = $event['message'];
             switch ($message['type']) {
                  case 'location':
-                     $replyToken=$event['replyToken'];
+                    $replyToken=$event['replyToken'];
                     $m_message = $message['text']; $source=$event['source']; $idtype = $source['type'];  $userid=$source['userId'];
                     $roomid=$source['roomId']; $groupid=$source['groupId'];$type=$message['type'];
                     $res = $bot->getProfile($userid); $profile = $res->getJSONDecodedBody();$displayName = $profile['displayName'];
