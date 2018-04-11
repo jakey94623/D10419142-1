@@ -82,7 +82,7 @@ foreach ($client->parseEvents() as $event) {
 					}else{
 						while ($row = $result->fetch_assoc() )
 						{
-							$Q=$row[118];
+							$Q=$row['118'];
 						}	
 							
 						
