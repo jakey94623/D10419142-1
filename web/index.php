@@ -54,14 +54,14 @@ foreach ($client->parseEvents() as $event) {
 			    
 		    if($address!="" && $longitude>=121.5651 && $longitude<=121.5654 && $latitude>=25.0865 && $latitude<=25.0868){
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
-			$sql = "select worktype from mysql where location='' and longitude='' and latitude='' and userid='$userid'";
+			$sql = "select worktype from test where location='' and longitude='' and latitude='' and userid='$userid'";
 			$result = $mysqli->query($sql);
 			while($row = $result->fetch_array(MYSQLI_BOTH)) {
   			$worktype = $row['worktype'] ;
 			}	
 			if($worktype!=""){
 			    $mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
-			    $sql = "UPDATE mysql SET location='$address',longitude='$longitude',latitude='$latitude' where name='$displayName' and worktype!=''and userid='$userid';";
+			    $sql = "UPDATE test SET location='$address',longitude='$longitude',latitude='$latitude' where name='$displayName' and worktype!=''and userid='$userid';";
 			    $result = $mysqli->query($sql);
 				$client->replyMessage(array(
         				'replyToken' => $event['replyToken'],
@@ -81,16 +81,16 @@ foreach ($client->parseEvents() as $event) {
 			}
 		    else{
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
-			$sql="SELECT number from mysql";
+			$sql="SELECT number from test";
 			$result = $mysqli->query($sql);
 			while($row = $result->fetch_array(MYSQLI_BOTH)) {
   				$number = $row['number'] ;
  			 }
 			$number=$number+1;
-			$sql="INSERT INTO mysql (number,name,userid,worktime,location,longitude,latitude) VALUES ('$number','$displayName','$userid','$time','$address','$longitude','$latitude')";
+			$sql="INSERT INTO test (number,name,userid,worktime,location,longitude,latitude) VALUES ('$number','$displayName','$userid','$time','$address','$longitude','$latitude')";
 			$result = $mysqli->query($sql);
 			sleep(3);    
-			$sql="SELECT name from mysql where worktype=''";
+			$sql="SELECT name from test where worktype=''";
 			$result = $mysqli->query($sql);
 			while($row = $result->fetch_array(MYSQLI_BOTH)) {
   				$name = $row['name'] ;
@@ -103,14 +103,13 @@ foreach ($client->parseEvents() as $event) {
 		 }
 		break;   
 		    case 'text':
-                	 $replyToken=$event['replyToken'];
-                    $m_message = $message['text']; $source=$event['source']; $idtype = $source['type'];  $userid=$source['userId'];
-                    $roomid=$source['roomId']; $groupid=$source['groupId'];
-                    $res = $bot->getProfile($userid); $profile = $res->getJSONDecodedBody();$displayName = $profile['displayName'];
-		    $address=$message['address']; $title=$message['title'];
-                    $longitude=$message['longitude']; $latitude=$message['latitude']; 
-                    date_default_timezone_set('Asia/Taipei');$time=date("Y-m-d H:i:s");
-			
+                	$m_message = $message['text'];
+                	$source=$event['source'];
+              	      	$type = $source['type']; 
+              	      	$id=$source['userId'];
+                  	$roomid=$source['roomId'];
+             	       	$groupid=$source['groupId'];
+			date_default_timezone_set('Asia/Taipei');
 			   
 			    $mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306"); 
 			    
@@ -123,7 +122,7 @@ foreach ($client->parseEvents() as $event) {
 			    
 			    
 			    
-                       		 //$mysqli->query("Insert INTO mysql (msg) values ('$m_message')");//成功會回傳 object 失敗則回傳 null
+                       		 //$mysqli->query("Insert INTO test (msg) values ('$m_message')");//成功會回傳 object 失敗則回傳 null
 				
             
 			   $in='進';
@@ -133,7 +132,7 @@ foreach ($client->parseEvents() as $event) {
                 	if(preg_match("/$in/","$m_message"))
                 	{
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
-			$sql = "SELECT location from mysql where worktype='' and userid='$userid'";
+			$sql = "SELECT location from test where worktype='' and userid='$userid'";
 			$result = $mysqli->query($sql);
 			while($row = $result->fetch_array(MYSQLI_BOTH)) {
   			$location = $row['location'] ;
@@ -148,20 +147,20 @@ foreach ($client->parseEvents() as $event) {
                                    ),
  	       		)));
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
-			$sql = "UPDATE mysql SET worktype='進' where name='$displayName' and worktype=' '";
+			$sql = "UPDATE test SET worktype='進' where name='$displayName' and worktype=' '";
 			$result = $mysqli->query($sql);
 			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayName." "."進");
 		    	//$response = $bot->pushMessage('R8466f385da9bd8eac6fb509622c0a892', $textMessageBuilder);
 			}
 			else{
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
-			$sql="SELECT number from mysql";
+			$sql="SELECT number from test";
 			$result = $mysqli->query($sql);
 			while($row = $result->fetch_array(MYSQLI_BOTH)) {
   				$number = $row['number'] ;
  			 }
 			$number=$number+1;
-			$sql="INSERT INTO mysql (number,name,userid,worktime,worktype) VALUES ('$number','$displayName','$userid','$time','進')";
+			$sql="INSERT INTO test (number,name,userid,worktime,worktype) VALUES ('$number','$displayName','$userid','$time','進')";
 			$result = $mysqli->query($sql);
 			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("請定位你的位置");
 		    	$response = $bot->pushMessage($userid, $textMessageBuilder);
@@ -169,7 +168,7 @@ foreach ($client->parseEvents() as $event) {
 		    }
 			    else if(preg_match("/$out/","$m_message")){
 				$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
-			$sql = "SELECT location from mysql where worktype='' and userid='$userid'";
+			$sql = "SELECT location from test where worktype='' and userid='$userid'";
 			$result = $mysqli->query($sql);
 			while($row = $result->fetch_array(MYSQLI_BOTH)) {
   			$location = $row['location'] ;
@@ -184,20 +183,20 @@ foreach ($client->parseEvents() as $event) {
                                    ),
  	       		)));
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
-			$sql = "UPDATE mysql SET worktype='出' where name='$displayName' and worktype=' '";
+			$sql = "UPDATE test SET worktype='出' where name='$displayName' and worktype=' '";
 			$result = $mysqli->query($sql);
 			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayName." "."出");
 		    	//$response = $bot->pushMessage('R8466f385da9bd8eac6fb509622c0a892', $textMessageBuilder);
 			}
 			else{
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
-			$sql="SELECT number from mysql";
+			$sql="SELECT number from test";
 			$result = $mysqli->query($sql);
 			while($row = $result->fetch_array(MYSQLI_BOTH)) {
   				$number = $row['number'] ;
  			 }
 			$number=$number+1;
-			$sql="INSERT INTO mysql (number,name,userid,worktime,worktype) VALUES ('$number','$displayName','$userid','$time','出')";
+			$sql="INSERT INTO test (number,name,userid,worktime,worktype) VALUES ('$number','$displayName','$userid','$time','出')";
 			$result = $mysqli->query($sql);
 			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("請定位你的位置");
 		    	$response = $bot->pushMessage($userid, $textMessageBuilder);
