@@ -44,11 +44,20 @@ foreach ($client->parseEvents() as $event) {
             switch ($message['type']) {
                  case 'location':
                     $replyToken=$event['replyToken'];
-                    $m_message = $message['text']; $source=$event['source']; $idtype = $source['type'];  $userid=$source['userId'];
-                    $roomid=$source['roomId']; $groupid=$source['groupId'];$type=$message['type'];
-                    $res = $bot->getProfile($userid); $profile = $res->getJSONDecodedBody();$displayName = $profile['displayName'];
-		    $address=$message['address']; $title=$message['title'];
-                    $longitude=$message['longitude']; $latitude=$message['latitude']; 
+                    $m_message = $message['text']; 
+	            $source=$event['source']; 
+		    $idtype = $source['type'];  
+		    $userid=$source['userId'];
+                    $roomid=$source['roomId']; 
+		    $groupid=$source['groupId'];
+		    $type=$message['type'];
+                    $res = $bot->getProfile($userid); 
+		    $profile = $res->getJSONDecodedBody();
+		    $displayName = $profile['displayName'];
+		    $address=$message['address']; 
+		    $title=$message['title'];
+                    $longitude=$message['longitude']; 
+	            $latitude=$message['latitude']; 
                     date_default_timezone_set('Asia/Taipei');$time=date("Y-m-d H:i:s");
 			    
 			    
@@ -77,7 +86,7 @@ foreach ($client->parseEvents() as $event) {
   				$worktype = $row['worktype'] ;
  			 }
 			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayName." ".$worktype);
-		    	//$response = $bot->pushMessage('R8466f385da9bd8eac6fb509622c0a892', $textMessageBuilder);
+		    	$response = $bot->pushMessage('R8466f385da9bd8eac6fb509622c0a892', $textMessageBuilder);
 			}
 		    else{
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
@@ -150,7 +159,7 @@ foreach ($client->parseEvents() as $event) {
 			$sql = "UPDATE test SET worktype='進' where name='$displayName' and worktype=' '";
 			$result = $mysqli->query($sql);
 			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayName." "."進");
-		    	//$response = $bot->pushMessage('R8466f385da9bd8eac6fb509622c0a892', $textMessageBuilder);
+		    	$response = $bot->pushMessage('R8466f385da9bd8eac6fb509622c0a892', $textMessageBuilder);
 			}
 			else{
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
