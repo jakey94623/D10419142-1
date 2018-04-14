@@ -237,35 +237,7 @@ foreach ($client->parseEvents() as $event) {
 			}
 		    }
 		    else if($m_message!='' && $m_message!='設置成功' && $m_message!='毫無相關'){
-			$client->replyMessage(array(
-                        'replyToken' => $event['replyToken'],
-                        'messages' => array(
-                            array(
-                                'type' => 'template', 
-                                'altText' => 'simple in and out',
-                                'template' => array(
-                                'type' => 'buttons',	
-                                'title' => '選單',
-                                'text' => '請問'.$m_message.'代表什麼',
-                                'actions' => array(
-                                     array(
-                                    'type' => 'postback',
-                                    'label' => 'IN',
-				    'data' => 'action=in&itemid=12',
-                                    'text' => '設置成功'
-                                ),
-                                    array(
-                                    'type' => 'postback',
-                                    'label' => 'OUT',
-				    'data' => 'action=out&itemid=123',
-                                    'text' => '設置成功'
-                                 ),
-                                    array(
-                                    'type' => 'message', 
-                                    'label' => 'nothing',
-                                    'text' => '毫無相關'
-                             )
-                            ))))));  
+			  
 		    }
                     break;
             }
