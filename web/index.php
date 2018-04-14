@@ -48,7 +48,7 @@ foreach ($client->parseEvents() as $event) {
 			    
 			    
 			    
-                       		 $mysqli->query("Insert INTO test (msg) values ('$m_message')");//成功會回傳 object 失敗則回傳 null
+                       		 $mysqli->query("Insert INTO c304msgdata (msg) values ('$m_message')");//成功會回傳 object 失敗則回傳 null
 				
                    if(preg_match("/進/","$m_message")){
 		   $client->replyMessage(array(
@@ -74,7 +74,7 @@ foreach ($client->parseEvents() as $event) {
 			    
                 	if($m_message=="安安")
                 	{
-				$result = $mysqli->query("SELECT Q FROM test");//成功會回傳 object 失敗則回傳 null
+				$result = $mysqli->query("SELECT msg FROM c304msgdata");//成功會回傳 object 失敗則回傳 null
 				if($result==null){ /* 資料庫語法錯誤 */
 					//$this->console_log .='資料庫語法錯誤';
 					//$this->console_log .='語法錯誤>'.(string)$mysqli->errno.(string)$mysqli->error.'<';
