@@ -47,8 +47,8 @@ foreach ($client->parseEvents() as $event) {
 			   
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
 			    
-			    $cool=mysqli_query($mysqli,"select Q from test");
-			    mysqli_query($mysqli,"INSERT INTO test (Q, A)VALUES ('555','666')");
+			    $cool=mysqli_query($mysqli,"select Q from c304msgdata");
+			    mysqli_query($mysqli,"INSERT INTO c304msgdata (Q, A)VALUES ('555','666')");
 			    if(mysqli_connect_errno()){ $debugmsg='資料庫連線失敗'; //資料庫連線失敗
 				}else{
 					$mysqli->close();
@@ -59,7 +59,7 @@ foreach ($client->parseEvents() as $event) {
 			   
 			   
 			    $link = mysqli_connect("localost","id901974_linebot","123456","id901974_linebot");
-$A=mysqli_query($link,"select * from test",MYSQLI_USE_RESULT);
+$A=mysqli_query($link,"select * from c304msgdata",MYSQLI_USE_RESULT);
 			    
 			if (mysqli_connect_errno()){
 				$debugmsg="Failed to connect to MySQL: " . mysqli_connect_error();
