@@ -54,7 +54,7 @@ foreach ($client->parseEvents() as $event) {
      			   		'messages' => array(
 				   	array(
                                           'type' => 'text',
-                                          'text' => ""
+                                          'text' => "定位成功!!"
                                        	),
  				)));
 			$sql="SELECT worktype from mysql where userid='$userid'";
@@ -178,7 +178,7 @@ foreach ($client->parseEvents() as $event) {
      			   'messages' => array(
 			     array(
                                           'type' => 'text',
-                                          'text' => ""
+                                          'text' => "歡迎你的到來!!" . "\n" . "祝你使用愉快!!"
                                    ),
  	       		)));
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
@@ -197,7 +197,7 @@ foreach ($client->parseEvents() as $event) {
 			$number=$number+1;
 			$sql="INSERT INTO mysql (number,name,userid,worktime,worktype) VALUES ('$number','$displayName','$userid','$time','進')";
 			$result = $mysqli->query($sql);
-			
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("請定位你的位置");
 		    	$response = $bot->pushMessage($userid, $textMessageBuilder);
 			}
 		    }else if($unjoin){
@@ -232,12 +232,40 @@ foreach ($client->parseEvents() as $event) {
 			$number=$number+1;
 			$sql="INSERT INTO mysql (number,name,userid,worktime,worktype) VALUES ('$number','$displayName','$userid','$time','出')";
 			$result = $mysqli->query($sql);
-			
+			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("請定位你的位置");
 		    	$response = $bot->pushMessage($userid, $textMessageBuilder);
 			}
 		    }
 		    else if($m_message!='' && $m_message!='設置成功' && $m_message!='毫無相關'){
-			  
+			$client->replyMessage(array(
+                        'replyToken' => $event['replyToken'],
+                        'messages' => array(
+                            array(
+                                'type' => 'template', 
+                                'altText' => 'simple in and out',
+                                'template' => array(
+                                'type' => 'buttons',	
+                                'title' => '選單',
+                                'text' => '請問'.$m_message.'代表什麼',
+                                'actions' => array(
+                                     array(
+                                    'type' => 'postback',
+                                    'label' => 'IN',
+				    'data' => 'action=in&itemid=12',
+                                    'text' => '設置成功'
+                                ),
+                                    array(
+                                    'type' => 'postback',
+                                    'label' => 'OUT',
+				    'data' => 'action=out&itemid=123',
+                                    'text' => '設置成功'
+                                 ),
+                                    array(
+                                    'type' => 'message', 
+                                    'label' => 'nothing',
+                                    'text' => '毫無相關'
+                             )
+                            ))))));  
 		    }
                     break;
             }
