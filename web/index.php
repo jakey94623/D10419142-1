@@ -54,19 +54,7 @@ foreach ($client->parseEvents() as $event) {
 					$mysqli->close();
 				}
 			    
-			    
-			   /*
-			   
-			   
-			    $link = mysqli_connect("localost","id901974_linebot","123456","id901974_linebot");
-$A=mysqli_query($link,"select * from c304msgdata",MYSQLI_USE_RESULT);
-			    
-			if (mysqli_connect_errno()){
-				$debugmsg="Failed to connect to MySQL: " . mysqli_connect_error();
-			}
-			    
-               mysqli_close($link);
-			*/
+			
 			    
                 	if($m_message=="安安")
                 	{
