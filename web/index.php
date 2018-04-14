@@ -54,7 +54,7 @@ foreach ($client->parseEvents() as $event) {
      			   		'messages' => array(
 				   	array(
                                           'type' => 'text',
-                                          'text' => "定位成功!!"
+                                          'text' => ""
                                        	),
  				)));
 			$sql="SELECT worktype from mysql where userid='$userid'";
@@ -178,7 +178,7 @@ foreach ($client->parseEvents() as $event) {
      			   'messages' => array(
 			     array(
                                           'type' => 'text',
-                                          'text' => "歡迎你的到來!!" . "\n" . "祝你使用愉快!!"
+                                          'text' => ""
                                    ),
  	       		)));
 			$mysqli = new mysqli('e764qqay0xlsc4cz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "lptrv8w6oc62hrpr", "iagiyml96j33de6q", "ifz67f5o6szf2gdu","3306");
