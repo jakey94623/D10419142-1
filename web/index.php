@@ -232,7 +232,7 @@ foreach ($client->parseEvents() as $event) {
 			$number=$number+1;
 			$sql="INSERT INTO mysql (number,name,userid,worktime,worktype) VALUES ('$number','$displayName','$userid','$time','出')";
 			$result = $mysqli->query($sql);
-			$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("請定位你的位置");
+			
 		    	$response = $bot->pushMessage($userid, $textMessageBuilder);
 			}
 		    }
