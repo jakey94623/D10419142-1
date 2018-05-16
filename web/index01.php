@@ -48,6 +48,7 @@ foreach ($client->parseEvents() as $event) {
 					$mysqli = new mysqli('edo4plet5mhv93s3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "ia8wipiqgptyg9yb", "ywz5dcdawbeq11cy", "fu7wm9fyq2nkgeuk","3306");
 					$join=false;
 					$unjoin=false;
+					$untest=true;
 					$sql = "SELECT inside from ininin";
 					$result = $mysqli->query($sql);
 					while($row = $result->fetch_array(MYSQLI_BOTH)){
@@ -64,7 +65,15 @@ foreach ($client->parseEvents() as $event) {
 							$unjoin=true;
 						}
 					}
-					
+					$sql="select test from untest";
+					$result = $mysqli->query($sql);
+						while($row = $result->fetch_array(MYSQLI_BOTH)) {
+							$test = $row['test'];
+							if(preg_match("/$test/i","$m_message")){
+								$untest=false;
+							}
+						}
+					if($untest)	{
 				if($join){
 					$sql = "SELECT name from 304ex where userid='$userId'";
 					$result = $mysqli->query($sql);
@@ -108,6 +117,7 @@ foreach ($client->parseEvents() as $event) {
 				$sql="INSERT INTO 304ex (number,name,userid,msg,worktype,worktime) VALUES ('$a','$name','$userId','$m_message','無','$time')";
 				$result = $mysqli->query($sql);
 			}
+					}
 			    		break;
 			}
 			break;
