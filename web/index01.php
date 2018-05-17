@@ -103,7 +103,21 @@ foreach ($client->parseEvents() as $event) {
 					$sql="INSERT INTO 304ex (number,name,userid,msg,worktype,worktime) VALUES ('$a','$name','$userId','$m_message','出','$time')";
 					$result = $mysqli->query($sql);
 				
-					}
+					}else{
+					$sql = "SELECT name from 304ex where userid='$userId'";
+					$result = $mysqli->query($sql);
+					while($row = $result->fetch_array(MYSQLI_BOTH)) {
+					    		$name = $row['name'];
+				    		}	
+					$sql = "select number from 304ex";
+							$result = $mysqli->query($sql);
+					    		while($row = $result->fetch_array(MYSQLI_BOTH)) {
+						    		$a = $row['number'] ;
+					    		}
+					    		$a+=1;
+				$sql="INSERT INTO 304ex (number,name,userid,msg,worktype,worktime) VALUES ('$a','$name','$userId','$m_message','無','$time')";
+				$result = $mysqli->query($sql);
+			}
 					}
 					else{
 					$sql = "SELECT name from 304ex where userid='$userId'";
