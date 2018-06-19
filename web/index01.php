@@ -184,10 +184,7 @@ foreach ($client->parseEvents() as $event) {
 					}else if(preg_match("/^([0-9]+)$/","$m_message")){
 				$msg = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證失敗");
                         $bot->replyMessage($replyToken,$msg);
-			}else{
-			  $msg = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("安安");
-                        $bot->replyMessage($replyToken,$msg);
-	  }
+			}
 					}				else{
 					while($row = $result->fetch_array(MYSQLI_BOTH)){
 						$inside = $row['inside'] ;
