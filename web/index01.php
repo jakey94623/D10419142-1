@@ -43,7 +43,8 @@ foreach ($client->parseEvents() as $event) {
 			    		$response = $bot->getProfile($userId);
 			    		$profile = $response->getJSONDecodedBody();
 					$displayname=$profile['displayName'];
-			    		date_default_timezone_set('Asia/Taipei');	   
+			    		date_default_timezone_set('Asia/Taipei');	
+					$key=rand(1000,9999);
 			    		$time=date("Y-m-d H:i:s");
 					$mysqli = new mysqli('edo4plet5mhv93s3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "ia8wipiqgptyg9yb", "ywz5dcdawbeq11cy", "fu7wm9fyq2nkgeuk","3306");
 					$join=false;
