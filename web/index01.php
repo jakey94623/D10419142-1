@@ -124,7 +124,7 @@ foreach ($client->parseEvents() as $event) {
 					}else if($unjoin && $m_message!=$numbercode){
 			            $sql="INSERT INTO code (numbercode,msg,userid) VALUES ('$key','出','$userId')";
 			            $result = $mysqli->query($sql);
-						$sql = "select number from ex";
+						$sql = "select number from 304ex";
 							$result = $mysqli->query($sql);
 					    		while($row = $result->fetch_array(MYSQLI_BOTH)) {
 						    		$a = $row['number'] ;
@@ -159,7 +159,7 @@ foreach ($client->parseEvents() as $event) {
 							$response = $bot->pushMessage($userId, $textMessageBuilder);
 							$sql="delete from code where numbercode='$key' and userid='$userId'";
 							$result = $mysqli->query($sql);
-							$sql="UPDATE ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
+							$sql="UPDATE 304ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
 							$result = $mysqli->query($sql);
 						}
 						
