@@ -82,13 +82,13 @@ foreach ($client->parseEvents() as $event) {
             $mysqli = new mysqli('edo4plet5mhv93s3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "ia8wipiqgptyg9yb", "ywz5dcdawbeq11cy", "fu7wm9fyq2nkgeuk","3306");
 			            $sql="INSERT INTO code (numbercode,msg,userid) VALUES ('$key','進','$userId')";
 			            $result = $mysqli->query($sql);
-						$sql = "select number from ex";
+						$sql = "select number from 304ex";
 							$result = $mysqli->query($sql);
 					    		while($row = $result->fetch_array(MYSQLI_BOTH)) {
 						    		$a = $row['number'] ;
 					    		}
 					    		$a+=1;
-						$sql="INSERT INTO ex (number,name,userid,msg,worktime) VALUES ('$a','$displayname','$userId','$m_message','$time')";
+						$sql="INSERT INTO 304ex (number,name,userid,msg,worktime) VALUES ('$a','$displayname','$userId','$m_message','$time')";
 					    		$result = $mysqli->query($sql);
             $client->replyMessage(array(
 						    		'replyToken' => $event['replyToken'],
@@ -118,7 +118,7 @@ foreach ($client->parseEvents() as $event) {
 							$response = $bot->pushMessage($userId, $textMessageBuilder);
 							$sql="delete from code where numbercode='$key' and userid='$userId'";
 							$result = $mysqli->query($sql);
-							$sql="UPDATE ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
+							$sql="UPDATE 304ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
 							$result = $mysqli->query($sql);
 						}
 					}else if($unjoin && $m_message!=$numbercode){
@@ -130,7 +130,7 @@ foreach ($client->parseEvents() as $event) {
 						    		$a = $row['number'] ;
 					    		}
 					    		$a+=1;
-						$sql="INSERT INTO ex (number,name,userid,msg,worktime) VALUES ('$a','$displayname','$userId','$m_message','$time')";
+						$sql="INSERT INTO 304ex (number,name,userid,msg,worktime) VALUES ('$a','$displayname','$userId','$m_message','$time')";
 					    		$result = $mysqli->query($sql);
 							$client->replyMessage(array(
 								'replyToken' => $event['replyToken'],
@@ -174,7 +174,7 @@ foreach ($client->parseEvents() as $event) {
 						}
           if ($m_message== $numbercode) {
 		              $mysqli = new mysqli('edo4plet5mhv93s3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "ia8wipiqgptyg9yb", "ywz5dcdawbeq11cy", "fu7wm9fyq2nkgeuk","3306");
-		$sql = "UPDATE ex SET worktype='$msg',vcode='$numbercode' where worktype='' and vcode='' and userid='$userId';";		
+		$sql = "UPDATE 304ex SET worktype='$msg',vcode='$numbercode' where worktype='' and vcode='' and userid='$userId';";		
 							$result = $mysqli->query($sql);
 				$msg = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證成功");
                         $bot->replyMessage($replyToken,$msg);
