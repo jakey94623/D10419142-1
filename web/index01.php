@@ -186,7 +186,7 @@ foreach ($client->parseEvents() as $event) {
 			  $msg = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("安安");
                         $bot->replyMessage($replyToken,$msg);
 	  }
-					else{
+					}				else{
 					while($row = $result->fetch_array(MYSQLI_BOTH)){
 						$inside = $row['inside'] ;
 						if(preg_match("/$inside/i","$m_message")){
