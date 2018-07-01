@@ -80,7 +80,7 @@ foreach ($client->parseEvents() as $event) {
 				if($untest)	{
 					if($join && $m_message!=$numbercode){
             $mysqli = new mysqli('edo4plet5mhv93s3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "ia8wipiqgptyg9yb", "ywz5dcdawbeq11cy", "fu7wm9fyq2nkgeuk","3306");
-			            $sql="INSERT INTO code (numbercode,msg,userid) VALUES ('$key','進','$userId')";
+			            $sql="INSERT INTO code (numbercode,msg,userid,groupid) VALUES ('$key','進','$userId','$groupid')";
 			            $result = $mysqli->query($sql);
 						$sql = "select number from 304ex";
 							$result = $mysqli->query($sql);
@@ -122,7 +122,7 @@ foreach ($client->parseEvents() as $event) {
 							$result = $mysqli->query($sql);
 						}
 					}else if($unjoin && $m_message!=$numbercode){
-			            $sql="INSERT INTO code (numbercode,msg,userid) VALUES ('$key','出','$userId')";
+			            $sql="INSERT INTO code (numbercode,msg,userid,groupid) VALUES ('$key','出','$userId','$groupid')";
 			            $result = $mysqli->query($sql);
 						$sql = "select number from 304ex";
 							$result = $mysqli->query($sql);
