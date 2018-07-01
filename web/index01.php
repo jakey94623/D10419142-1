@@ -80,7 +80,7 @@ foreach ($client->parseEvents() as $event) {
 				if($untest)	{
 					if($join && $m_message!=$numbercode){
             $mysqli = new mysqli('edo4plet5mhv93s3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "ia8wipiqgptyg9yb", "ywz5dcdawbeq11cy", "fu7wm9fyq2nkgeuk","3306");
-			            $sql="INSERT INTO code (numbercode,msg,userid,groupid) VALUES ('$key','進','$userId','$groupid')";
+			            $sql="INSERT INTO code (numbercode,msg,userid) VALUES ('$key','進','$userId')";
 			            $result = $mysqli->query($sql);
 						$sql = "select number from 304ex";
 							$result = $mysqli->query($sql);
@@ -88,7 +88,7 @@ foreach ($client->parseEvents() as $event) {
 						    		$a = $row['number'] ;
 					    		}
 					    		$a+=1;
-						$sql="INSERT INTO 304ex (number,name,userid,msg,worktime) VALUES ('$a','$displayname','$userId','$m_message','$time')";
+						$sql="INSERT INTO 304ex (number,name,userid,groupid,msg,worktime) VALUES ('$a','$displayname','$userId','$groupid','$m_message','$time')";
 					    		$result = $mysqli->query($sql);
             $client->replyMessage(array(
 						    		'replyToken' => $event['replyToken'],
@@ -122,7 +122,7 @@ foreach ($client->parseEvents() as $event) {
 							$result = $mysqli->query($sql);
 						}
 					}else if($unjoin && $m_message!=$numbercode){
-			            $sql="INSERT INTO code (numbercode,msg,userid,groupid) VALUES ('$key','出','$userId','$groupid')";
+			            $sql="INSERT INTO code (numbercode,msg,userid) VALUES ('$key','出','$userId')";
 			            $result = $mysqli->query($sql);
 						$sql = "select number from 304ex";
 							$result = $mysqli->query($sql);
@@ -130,7 +130,7 @@ foreach ($client->parseEvents() as $event) {
 						    		$a = $row['number'] ;
 					    		}
 					    		$a+=1;
-						$sql="INSERT INTO 304ex (number,name,userid,msg,worktime) VALUES ('$a','$displayname','$userId','$m_message','$time')";
+						$sql="INSERT INTO 304ex (number,name,userid,groupid,msg,worktime) VALUES ('$a','$displayname','$userId','$groupid','$m_message','$time')";
 					    		$result = $mysqli->query($sql);
 							$client->replyMessage(array(
 								'replyToken' => $event['replyToken'],
