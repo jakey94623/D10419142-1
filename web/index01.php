@@ -93,10 +93,7 @@ foreach ($client->parseEvents() as $event) {
             $client->replyMessage(array(
 						    		'replyToken' => $event['replyToken'],
 						    		'messages' => array(
-							    		array(
-								    		'type' => 'text',
-										'text' => "歡迎你的到來!!" . "\n" . "祝你使用愉快!!"
-									),
+							    		
 									array(
 								    		'type' => 'text',
 								    		'text' => "請輸入驗證碼!!"
@@ -143,10 +140,7 @@ foreach ($client->parseEvents() as $event) {
 							$client->replyMessage(array(
 								'replyToken' => $event['replyToken'],
 								'messages' => array(
-									array(
-										'type' => 'text',
-										'text' => "謝謝你的使用!!" . "\n" . "歡迎下次再來!!"
-									),
+									
 									array(
 								    		'type' => 'text',
 								    		'text' => "請輸入驗證碼!!"
