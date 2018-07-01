@@ -121,14 +121,14 @@ foreach ($client->parseEvents() as $event) {
 							$sql="UPDATE 304ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
 							$result = $mysqli->query($sql);
 							}
-							else{
+							/*else{
 							$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證逾時");
 							$response = $bot->pushMessage($userId, $textMessageBuilder);
 							$sql="delete from code where numbercode='$key' and userid='$userId'";
 							$result = $mysqli->query($sql);
 							$sql="UPDATE 304ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
 							$result = $mysqli->query($sql);
-						}
+						}*/
 					}else if($unjoin && $m_message!=$numbercode){
 			            $sql="INSERT INTO code (numbercode,msg,userid) VALUES ('$key','出','$userId')";
 			            $result = $mysqli->query($sql);
@@ -171,14 +171,14 @@ foreach ($client->parseEvents() as $event) {
 							$result = $mysqli->query($sql);
 						}
 							
-							else{
+							/*else{
 							$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證逾時");
 							$response = $bot->pushMessage($userId, $textMessageBuilder);
 							$sql="delete from code where numbercode='$key' and userid='$userId'";
 							$result = $mysqli->query($sql);
 							$sql="UPDATE 304ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
 							$result = $mysqli->query($sql);
-						}
+						}*/
 						
 			    		}
 				}
