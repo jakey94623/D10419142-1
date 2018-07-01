@@ -88,7 +88,7 @@ foreach ($client->parseEvents() as $event) {
 						    		$a = $row['number'] ;
 					    		}
 					    		$a+=1;
-						$sql="INSERT INTO 304ex (number,name,userid,groupid,msg,worktime) VALUES ('$a','$displayname','$userId','$groupid','$m_message','$time')";
+						$sql="INSERT INTO 304ex (number,name,userid,msg,worktime) VALUES ('$a','$displayname','$userId','$m_message','$time')";
 					    		$result = $mysqli->query($sql);
             $client->replyMessage(array(
 						    		'replyToken' => $event['replyToken'],
@@ -113,7 +113,15 @@ foreach ($client->parseEvents() as $event) {
 							$msg2 = $row['msg'];
 						}
 						
-						if($msg2 == "進"){
+						if($msg2 == "進" && $groupid!=""){
+							$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證逾時");
+							$response = $bot->pushMessage($groupid, $textMessageBuilder);
+							$sql="delete from code where numbercode='$key' and userid='$userId'";
+							$result = $mysqli->query($sql);
+							$sql="UPDATE 304ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
+							$result = $mysqli->query($sql);
+							}
+							else{
 							$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證逾時");
 							$response = $bot->pushMessage($userId, $textMessageBuilder);
 							$sql="delete from code where numbercode='$key' and userid='$userId'";
@@ -130,7 +138,7 @@ foreach ($client->parseEvents() as $event) {
 						    		$a = $row['number'] ;
 					    		}
 					    		$a+=1;
-						$sql="INSERT INTO 304ex (number,name,userid,groupid,msg,worktime) VALUES ('$a','$displayname','$userId','$groupid','$m_message','$time')";
+						$sql="INSERT INTO 304ex (number,name,userid,msg,worktime) VALUES ('$a','$displayname','$userId','$m_message','$time')";
 					    		$result = $mysqli->query($sql);
 							$client->replyMessage(array(
 								'replyToken' => $event['replyToken'],
@@ -154,7 +162,16 @@ foreach ($client->parseEvents() as $event) {
 						while($row = $result->fetch_array(MYSQLI_BOTH)) {
 							$msg2 = $row['msg'];
 						}
-						if($msg2 == "出"){
+						if($msg2 == "出" && $groupid!=""){
+							$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證逾時");
+							$response = $bot->pushMessage($groupid, $textMessageBuilder);
+							$sql="delete from code where numbercode='$key' and userid='$userId'";
+							$result = $mysqli->query($sql);
+							$sql="UPDATE 304ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
+							$result = $mysqli->query($sql);
+						}
+							
+							else{
 							$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證逾時");
 							$response = $bot->pushMessage($userId, $textMessageBuilder);
 							$sql="delete from code where numbercode='$key' and userid='$userId'";
