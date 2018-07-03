@@ -93,10 +93,6 @@ foreach ($client->parseEvents() as $event) {
             $client->replyMessage(array(
 						    		'replyToken' => $event['replyToken'],
 						    		'messages' => array(
-							    		array(
-								    		'type' => 'text',
-										'text' => "歡迎你的到來!!" . "\n" . "祝你使用愉快!!"
-									),
 									array(
 								    		'type' => 'text',
 								    		'text' => "請輸入驗證碼!!"
@@ -115,7 +111,7 @@ foreach ($client->parseEvents() as $event) {
 						
 						if($msg2 == "進"){
 							$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證逾時");
-							$response = $bot->pushMessage($userId, $textMessageBuilder);
+							$response = $bot->pushMessage($groupid, $textMessageBuilder);
 							$sql="delete from code where numbercode='$key' and userid='$userId'";
 							$result = $mysqli->query($sql);
 							$sql="UPDATE 304ex SET worktype='逾時' where worktype='' and vcode='' and userid='$userId';";
