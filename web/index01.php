@@ -147,7 +147,7 @@ foreach ($client->parseEvents() as $event) {
 							$msg2 = $row['msg'];
 						}
 						if($msg2 == "出"){
-							$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證逾時");
+							$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayname."驗證逾時");
 							$response = $bot->pushMessage($groupid, $textMessageBuilder);
 							$sql="delete from code where numbercode='$key' and userid='$userId'";
 							$result = $mysqli->query($sql);
@@ -168,13 +168,13 @@ foreach ($client->parseEvents() as $event) {
 		              $mysqli = new mysqli('edo4plet5mhv93s3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com', "ia8wipiqgptyg9yb", "ywz5dcdawbeq11cy", "fu7wm9fyq2nkgeuk","3306");
 		$sql = "UPDATE 304ex SET worktype='$msg',vcode='$numbercode' where worktype='' and vcode='' and userid='$userId';";		
 							$result = $mysqli->query($sql);
-				$msg = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證成功");
+				$msg = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayname."驗證成功");
                         $bot->replyMessage($replyToken,$msg);
 							$sql="delete from code where numbercode='$m_message' and userid='$userId'";
 							$result = $mysqli->query($sql);	
 					
 					}else if(preg_match("/^([0-9]+)$/","$m_message")){
-				$msg = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("驗證失敗");
+				$msg = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($displayname."驗證失敗");
                         $bot->replyMessage($replyToken,$msg);
 			}
 					}				else{
