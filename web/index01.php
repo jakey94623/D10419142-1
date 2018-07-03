@@ -132,10 +132,6 @@ foreach ($client->parseEvents() as $event) {
 								'replyToken' => $event['replyToken'],
 								'messages' => array(
 									array(
-										'type' => 'text',
-										'text' => "謝謝你的使用!!" . "\n" . "歡迎下次再來!!"
-									),
-									array(
 								    		'type' => 'text',
 								    		'text' => "請輸入驗證碼!!"
 							    		),
